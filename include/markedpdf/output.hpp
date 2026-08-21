@@ -43,12 +43,12 @@ struct Color {
 
 struct Text {
 	std::string content;
-	uint size;
-	bool styleItalic, styleBold;
+	unsigned size = 12;
+	bool styleItalic = false, styleBold = false;
 	Text(std::string_view);
 	Text& bold();
 	Text& italic();
-	Text& fontSize(uint);
+	Text& fontSize(unsigned);
 };
 
 /*
@@ -60,12 +60,14 @@ class PDFitem {
 private:
 	PoDoFo::PdfMemDocument document;
 	PoDoFo::PdfPainter painter;
-	double cursorX, cursorY;
-	std::string usingFontFamily;
-	PoDoFo::PdfFont* fontRegular;
-	PoDoFo::PdfFont* fontBold;
-	PoDoFo::PdfFont* fontItalic;
-	PoDoFo::PdfFont* fontBoldItalic;
+	double cursorX = 0, cursorY = 0;
+	std::string usingFontFamily = "Noto Sans CJK SC";
+	std::string fileName;
+	Color currentColor;
+	PoDoFo::PdfFont* fontRegular      = nullptr;
+	PoDoFo::PdfFont* fontBold         = nullptr;
+	PoDoFo::PdfFont* fontItalic       = nullptr;
+	PoDoFo::PdfFont* fontBoldItalic   = nullptr;
 	PoDoFo::PdfFont* getFont(const Text&);
 
 public:
